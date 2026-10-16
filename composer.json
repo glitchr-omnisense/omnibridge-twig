@@ -1,0 +1,16 @@
+{
+    "name": "omnibridge/twig",
+    "description": "The small contract a page rendered with Twig asks of any framework (path, asset, trans), and the Twig extension that provides it where the framework does not.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [{ "name": "Marco Meyer" }],
+    "require": {
+        "php": ">=8.2",
+        "twig/twig": "^3.10"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload": { "psr-4": { "Omnibridge\\Twig\\": "src/" } },
+    "autoload-dev": { "psr-4": { "Omnibridge\\Twig\\Tests\\": "tests/" } }
+}
