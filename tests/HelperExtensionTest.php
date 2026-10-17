@@ -36,9 +36,12 @@ final class HelperExtensionTest extends TestCase
         $date = new \DateTimeImmutable('2022-03-10 05:02:00', new \DateTimeZone('UTC'));
 
         self::assertSame('Mars 2022', $this->render('{{ date|datetime("MMMM YYYY")|title }}', ['date' => $date]));
+        self::assertSame('mars 2022', $this->render('{{ date|datetime("MMMM YYYY") }}', ['date' => $date]));
         self::assertSame('March 2022', $this->render('{{ date|datetime("MMMM YYYY")|title }}', ['date' => $date], 'en'));
         self::assertSame('10 mars 2022 05:02', $this->render('{{ date|datetime("dd MMMM YYYY HH:mm") }}', ['date' => $date]));
-        self::assertSame('Présent Now', $this->render('{{ "Présent"|datetime("MMMM YYYY") }} {{ "Now"|datetime("MMMM YYYY") }}'), 'a word stays a word: strtotime() would read "now"');
+        self::assertSame('on 10 march 2022', $this->render('on {{ date|datetime("dd MMMM YYYY") }}', ['date' => $date], 'en'), 'lower case, as omnibase gives it');
+        self::assertSame('présent now', $this->render('{{ "Présent"|datetime("MMMM YYYY") }} {{ "Now"|datetime("MMMM YYYY") }}'), 'a string is not read as a date: "now" would be today');
+        self::assertSame('MMMM YYYY', $this->render('{{ none|datetime("MMMM YYYY") }}', ['none' => null]), 'none: the pattern, as omnibase answers');
     }
 
     public function testRecentAndHighlighted(): void

@@ -143,19 +143,23 @@ final class HelperExtension extends AbstractExtension
         return strtoupper($parts[1] ?? $parts[0]);
     }
 
-    /** A date in the page's language, by an ICU pattern ("MMMM YYYY": mars 2022); anything else as it is. */
-    public function datetime(mixed $date, ?string $pattern = null, ?string $locale = null): mixed
+    /**
+     * A date in the page's language by an ICU pattern, lower case, as omnibase
+     * gives it ("MMMM YYYY": "mars 2022", |title after it for "Mars 2022");
+     * a string is not read as a date, only lowered ("Présent", "Now"); none
+     * is the pattern itself.
+     */
+    public function datetime(mixed $date, string $pattern = 'YYYY-MM-dd HH:mm:ss', ?string $locale = null): string
     {
-        // A word ("Présent", "Now") stays a word, though strtotime() would read "now" as a date.
-        if (\is_string($date) && (!preg_match('/^\d/', $date) || false === strtotime($date))) {
-            return $date;
+        if (null === $date || '' === $date || false === $date || 0 === $date) {
+            return $pattern;
         }
-        if (null === $date || '' === $date) {
-            return $date;
+        if (\is_string($date)) {
+            return mb_strtolower($date);
         }
-        $date = $date instanceof \DateTimeInterface ? $date : new \DateTimeImmutable(\is_int($date) ? '@'.$date : $date);
-        $formatter = new \IntlDateFormatter($locale ?? $this->locale, \IntlDateFormatter::MEDIUM, \IntlDateFormatter::SHORT, $this->timezone ?? $date->getTimezone(), null, $pattern);
+        $date = $date instanceof \DateTimeInterface ? $date : new \DateTimeImmutable('@'.(int) $date);
+        $formatter = new \IntlDateFormatter($locale ?? $this->locale, \IntlDateFormatter::NONE, \IntlDateFormatter::MEDIUM, $this->timezone ?? $date->getTimezone(), null, $pattern);
 
-        return $formatter->format($date);
+        return mb_strtolower((string) $formatter->format($date));
     }
 }
