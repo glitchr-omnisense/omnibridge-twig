@@ -9,7 +9,7 @@ use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 /**
- * What a page may use beyond Twig itself: `path()`, `asset()` and the `trans`
+ * What a page may use beyond Twig itself: `path()`, `url()`, `asset()` and the `trans`
  * filter, under the names Symfony gives them. A framework that already has
  * them (Symfony) does not register this extension; any other one does, with
  * its own answers to the contract.
@@ -26,6 +26,7 @@ final class ContractExtension extends AbstractExtension
     {
         return [
             new TwigFunction('path', $this->urls->path(...)),
+            new TwigFunction('url', $this->urls->url(...)),
             new TwigFunction('asset', $this->urls->asset(...)),
         ];
     }

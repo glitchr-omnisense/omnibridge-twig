@@ -14,11 +14,12 @@ final class ContractExtensionTest extends TestCase
     public function testAPageUsesTheContractUnderSymfonysNames(): void
     {
         $twig = new Environment(new ArrayLoader([
-            'page' => '<a href="{{ path("article", {slug: "fuji"}) }}">{{ "thread.readingTime"|trans([3], "messages") }}</a><link href="{{ asset("screen/screen.css") }}">',
+            'page' => '<a href="{{ path("article", {slug: "fuji"}) }}">{{ "thread.readingTime"|trans([3], "messages") }}</a><link href="{{ asset("screen/screen.css") }}"><link rel="canonical" href="{{ url("article", {slug: "fuji"}) }}">',
         ]));
         $twig->addExtension(new ContractExtension(
             new class implements Urls {
                 public function path(string $name, array $parameters = []): string { return '/'.$name.'/'.implode('/', $parameters); }
+                public function url(string $name, array $parameters = []): string { return 'https://site.test'.$this->path($name, $parameters); }
                 public function asset(string $path): string { return '/'.$path; }
             },
             new class implements Translations {
@@ -26,6 +27,6 @@ final class ContractExtensionTest extends TestCase
             },
         ));
 
-        self::assertSame('<a href="/article/fuji">messages:thread.readingTime:3</a><link href="/screen/screen.css">', $twig->render('page'));
+        self::assertSame('<a href="/article/fuji">messages:thread.readingTime:3</a><link href="/screen/screen.css"><link rel="canonical" href="https://site.test/article/fuji">', $twig->render('page'));
     }
 }

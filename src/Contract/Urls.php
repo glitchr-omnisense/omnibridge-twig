@@ -11,5 +11,12 @@ interface Urls
     /** @param array<string, scalar> $parameters */
     public function path(string $name, array $parameters = []): string;
 
+    /**
+     * The same route, whole (scheme and host): for a mail, a feed, a link shared elsewhere.
+     *
+     * @param array<string, scalar> $parameters
+     */
+    public function url(string $name, array $parameters = []): string;
+
     public function asset(string $path): string;
 }
