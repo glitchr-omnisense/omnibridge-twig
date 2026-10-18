@@ -53,4 +53,22 @@ final class HelperExtensionTest extends TestCase
         self::assertSame('Le <mark class="markdown-word"><mark class="markdown-pattern">Fuji</mark>-san</mark>', $this->render('{{ "Le Fuji-san"|highlight(["fuji"])|raw }}'));
         self::assertSame('Le Fuji', $this->render('{{ "Le Fuji"|highlight([]) }}'));
     }
+
+    /** A screen's moment (an ISO 8601 string) prints what the DateTime it came from printed, as omnibase's |datetime. */
+    public function testAMomentInIso8601IsThatMoment(): void
+    {
+        foreach ([new \DateTime('2022-03-15 23:30:00', new \DateTimeZone('Europe/Paris')), new \DateTime('2026-04-10 18:05:00', new \DateTimeZone('UTC'))] as $date) {
+            $moment = (clone $date)->setTimezone(new \DateTimeZone('UTC'))->format(\DATE_ATOM);
+            foreach (['dd MMMM YYYY', 'HH:mm', 'dd MMMM YYYY HH:mm', "'on' EEEE d MMMM"] as $pattern) {
+                foreach (['fr', 'en'] as $locale) {
+                    $template = "{{ date|datetime('".str_replace("'", "\\'", $pattern)."') }}";
+                    self::assertSame($this->render($template, ['date' => $date], $locale), $this->render($template, ['date' => $moment], $locale), $moment.', '.$pattern.', '.$locale);
+                }
+            }
+        }
+        self::assertSame('2026-04-10', $this->render("{{ date|datetime('YYYY-MM-dd') }}", ['date' => '2026-04-10T18:05:00Z']));
+        // A string that is no moment is still a word, lowered.
+        self::assertSame('2026-04-10 or later', $this->render("{{ '2026-04-10 or later'|datetime('MMMM YYYY') }}"));
+        self::assertSame('présent', $this->render("{{ 'Présent'|datetime('MMMM YYYY') }}"));
+    }
 }

@@ -145,21 +145,33 @@ final class HelperExtension extends AbstractExtension
 
     /**
      * A date in the page's language by an ICU pattern, lower case, as omnibase
-     * gives it ("MMMM YYYY": "mars 2022", |title after it for "Mars 2022");
-     * a string is not read as a date, only lowered ("Présent", "Now"); none
-     * is the pattern itself.
+     * gives it ("MMMM YYYY": "mars 2022", |title after it for "Mars 2022").
+     * A string in ISO 8601 (a screen's moment, omnibase's
+     * Base\Screen\Shape::moment(): 2026-04-10T18:05:00+00:00) is that moment,
+     * printed as the DateTime it came from was in the extension's time zone -
+     * as omnibase's |datetime reads it since 25b8ebac; any other string is
+     * not read as a date, only lowered ("Présent", "Now"); none is the
+     * pattern itself.
      */
     public function datetime(mixed $date, string $pattern = 'YYYY-MM-dd HH:mm:ss', ?string $locale = null): string
     {
         if (null === $date || '' === $date || false === $date || 0 === $date) {
             return $pattern;
         }
-        if (\is_string($date)) {
+        if (\is_string($date) && self::isMoment($date)) {
+            $date = new \DateTimeImmutable($date);
+        } elseif (\is_string($date)) {
             return mb_strtolower($date);
         }
         $date = $date instanceof \DateTimeInterface ? $date : new \DateTimeImmutable('@'.(int) $date);
         $formatter = new \IntlDateFormatter($locale ?? $this->locale, \IntlDateFormatter::NONE, \IntlDateFormatter::MEDIUM, $this->timezone ?? $date->getTimezone(), null, $pattern);
 
         return mb_strtolower((string) $formatter->format($date));
+    }
+
+    /** Whether a string is a moment in ISO 8601: a date, a time, and a zone or not (omnibase's FunctionTwigExtension::isMoment()). */
+    public static function isMoment(string $value): bool
+    {
+        return 1 === preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:?\d{2})?$/', $value);
     }
 }
