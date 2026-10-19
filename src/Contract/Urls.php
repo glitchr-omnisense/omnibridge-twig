@@ -9,4 +9,4 @@
  * omnibase 4's final pass.
  */
 
-class_alias(Omnibridge\Contract\Urls::class, 'Omnibridge\Twig\Contract\Urls');
+Omnibridge\Runtime::alias(Omnibridge\Contract\Urls::class, 'Omnibridge\Twig\Contract\Urls');

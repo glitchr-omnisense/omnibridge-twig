@@ -9,4 +9,4 @@
  * at omnibase 4's final pass.
  */
 
-class_alias(Omnibridge\Contract\Translations::class, 'Omnibridge\Twig\Contract\Translations');
+Omnibridge\Runtime::alias(Omnibridge\Contract\Translations::class, 'Omnibridge\Twig\Contract\Translations');
