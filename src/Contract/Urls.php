@@ -1,22 +1,12 @@
 <?php
 
-namespace Omnibridge\Twig\Contract;
-
-/**
- * Addresses, as a page asks for them: a route by its name, a public file by
- * its path. Each framework answers with its own router and asset packages.
+/*
+ * Omnibridge\Twig\Contract\Urls is omniscient/omnibridge's Omnibridge\Contract\Urls
+ * since the contracts moved to the family's core (plan "omnibase agnostique", A2):
+ * the same interface under its former name, an alias, not a subclass. Declared
+ * when Composer's autoloader is loaded (composer.json, autoload.files), so a type
+ * or an instanceof naming it holds before anything asks for it. To be removed at
+ * omnibase 4's final pass.
  */
-interface Urls
-{
-    /** @param array<string, scalar> $parameters */
-    public function path(string $name, array $parameters = []): string;
 
-    /**
-     * The same route, whole (scheme and host): for a mail, a feed, a link shared elsewhere.
-     *
-     * @param array<string, scalar> $parameters
-     */
-    public function url(string $name, array $parameters = []): string;
-
-    public function asset(string $path): string;
-}
+class_alias(Omnibridge\Contract\Urls::class, 'Omnibridge\Twig\Contract\Urls');

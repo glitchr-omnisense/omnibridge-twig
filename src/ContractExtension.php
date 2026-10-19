@@ -2,8 +2,8 @@
 
 namespace Omnibridge\Twig;
 
-use Omnibridge\Twig\Contract\Translations;
-use Omnibridge\Twig\Contract\Urls;
+use Omnibridge\Contract\Translations;
+use Omnibridge\Contract\Urls;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
