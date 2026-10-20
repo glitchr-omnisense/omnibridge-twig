@@ -35,6 +35,11 @@ final class AccessExtensionTest extends TestCase
             {
                 return 'token-of-'.$intent;
             }
+
+            public function isValid(string $intent, ?string $token): bool
+            {
+                return $token === $this->csrf($intent);
+            }
         };
     }
 
