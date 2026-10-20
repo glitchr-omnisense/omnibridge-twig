@@ -11,6 +11,11 @@ described once, a view bridge renders it).
 - `ContractExtension`: registers `path()`, `url()`, `asset()` and the `trans` filter
   under the names Symfony gives them. Symfony already has them and does not
   register it; another framework registers it with its own answers to the contract.
+- `AccessExtension`: `is_granted(attribute, subject)` on `Omnibridge\Contract\Access` and
+  `csrf_token(intent)` on `Omnibridge\Contract\Tokens`, under Symfony's names. Every host
+  registers it, Symfony included (omnibridge/symfony, after twig-bridge's own, which it then
+  answers with the same services): a page asks the same code under either framework. A
+  contract the host does not bind leaves its function out.
 - `HelperExtension`: the filters omnibase's templates use that are not Twig's own.
 
 Former names: `Omnibridge\Twig\Contract\Urls` and `Omnibridge\Twig\Contract\Translations`
