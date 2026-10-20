@@ -1,0 +1,91 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Cannot access offset 0 on list\<string\>\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/HelperExtension.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 2
+			path: src/HelperExtension.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 2
+			path: src/HelperExtension.php
+
+		-
+			message: '#^Method Omnibridge\\Twig\\HelperExtension\:\:highlight\(\) has parameter \$pattern with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/HelperExtension.php
+
+		-
+			message: '#^Method Omnibridge\\Twig\\HelperExtension\:\:htmlAttributes\(\) has parameter \$attributes with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/HelperExtension.php
+
+		-
+			message: '#^Method Omnibridge\\Twig\\HelperExtension\:\:joinIfExists\(\) has parameter \$list with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/HelperExtension.php
+
+		-
+			message: '#^Method Omnibridge\\Twig\\HelperExtension\:\:second\(\) has parameter \$list with no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/HelperExtension.php
+
+		-
+			message: '#^Method Omnibridge\\Twig\\HelperExtension\:\:shorten\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/HelperExtension.php
+
+		-
+			message: '#^Method Omnibridge\\Twig\\HelperExtension\:\:ucfirst\(\) has parameter \$text with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/HelperExtension.php
+
+		-
+			message: '#^Method Omnibridge\\Twig\\HelperExtension\:\:ucfirst\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/HelperExtension.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\|string\|null\)\: \(array\|string\) given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/HelperExtension.php
+
+		-
+			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/HelperExtension.php
+
+		-
+			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, array\<int\|string, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/ContractExtensionTest.php
+
+		-
+			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, array\<string, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/ContractExtensionTest.php
+
+		-
+			message: '#^Method Omnibridge\\Twig\\Tests\\HelperExtensionTest\:\:render\(\) has parameter \$context with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/HelperExtensionTest.php
