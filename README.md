@@ -16,6 +16,12 @@ described once, a view bridge renders it).
   registers it, Symfony included (omnibridge/symfony, after twig-bridge's own, which it then
   answers with the same services): a page asks the same code under either framework. A
   contract the host does not bind leaves its function out.
+- `MapExtension` (with omniscient/omnimap, suggested): `omnimap(view)` - the picture of a map
+  kept in omnimap's cache, or the live map, by omnimap's `MapPrinter` rule -, `omnimap_export(view,
+  attributes)` and `omnimap_suppress(view, attributes)` - the buttons that change the cache, for
+  whoever the host's `Access` grants the control attribute (ROLE_ADMIN), posting a `Tokens`
+  token to the host's map cache routes -, `omnimap_signature(view)`. omnibridge/symfony and
+  omnibridge/laravel register it when omnimap is configured.
 - `HelperExtension`: the filters omnibase's templates use that are not Twig's own.
 
 Former names: `Omnibridge\Twig\Contract\Urls` and `Omnibridge\Twig\Contract\Translations`
