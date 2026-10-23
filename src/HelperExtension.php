@@ -11,9 +11,9 @@ use Twig\TwigFunction;
  * framework rendering those templates without omnibase: the same names and
  * the same results as omnibase's (Resources/Functions.php and
  * FunctionTwigExtension), framework-free. Copied here because two frameworks
- * now need them (plan 0, rule 13); omnibase is to take them from here once it
- * depends on omnibridge/twig. A framework with omnibase does not register
- * this extension.
+ * now need them (plan 0, rule 13); omnibase registers this extension first
+ * and its own win where they do more. |at and |emoji_only are only here
+ * (they left omnibase's FunctionTwigExtension, audit R24).
  */
 final class HelperExtension extends AbstractExtension
 {
@@ -46,6 +46,8 @@ final class HelperExtension extends AbstractExtension
             new TwigFilter('country', self::country(...)),
             new TwigFilter('lang_name', fn (?string $locale) => \Locale::getDisplayLanguage(self::lang($locale), $this->locale)),
             new TwigFilter('datetime', $this->datetime(...)),
+            new TwigFilter('at', self::at(...)),
+            new TwigFilter('emoji_only', self::isEmojiOnly(...), ['is_safe' => ['all']]),
         ];
     }
 
@@ -127,6 +129,26 @@ final class HelperExtension extends AbstractExtension
         }
 
         return time() - (int) $date < $diff;
+    }
+
+    /**
+     * A list's entry at an index, null when it has none (omnibase's |at).
+     *
+     * @param array<int|string, mixed> $array
+     */
+    public static function at(array $array, int|string $index): mixed
+    {
+        return $array[$index] ?? null;
+    }
+
+    /** Whether a text is made of emoji alone, spaces aside (omnibase's |emoji_only: a comment of one emoji shown big). */
+    public static function isEmojiOnly(?string $value): bool
+    {
+        if (null === $value || '' === $value) {
+            return false;
+        }
+
+        return (bool) preg_match('/^[\p{Extended_Pictographic}\x{200D}\x{FE0F}\s]+$/u', $value);
     }
 
     /** fr-FR, fr_FR: fr. */

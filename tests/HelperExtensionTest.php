@@ -31,6 +31,13 @@ final class HelperExtensionTest extends TestCase
         self::assertSame("L'été", $this->render('{{ "L&#039;&eacute;t&eacute;"|html_decode|raw }}'));
     }
 
+    public function testAnEntryAndEmojiAlone(): void
+    {
+        self::assertSame('b|', $this->render('{{ ["a", "b"]|at(1) }}|{{ ["a", "b"]|at(5) }}'), 'none at an index it has not');
+        self::assertSame('<i>published</i>', $this->render('{{ {published: "<i>published</i>"}|at("published")|raw }}'));
+        self::assertSame('yes no no no', $this->render('{{ "🎉 👍"|emoji_only ? "yes" : "no" }} {{ "bravo 🎉"|emoji_only ? "yes" : "no" }} {{ ""|emoji_only ? "yes" : "no" }} {{ none|emoji_only ? "yes" : "no" }}', ['none' => null]));
+    }
+
     public function testDatesInThePagesLanguageAndWordsAsTheyAre(): void
     {
         $date = new \DateTimeImmutable('2022-03-10 05:02:00', new \DateTimeZone('UTC'));
