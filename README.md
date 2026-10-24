@@ -24,9 +24,8 @@ described once, a view bridge renders it).
   omnibridge/laravel register it when omnimap is configured.
 - `HelperExtension`: the filters omnibase's templates use that are not Twig's own.
 
-Former names: `Omnibridge\Twig\Contract\Urls` and `Omnibridge\Twig\Contract\Translations`
-remain aliases of omniscient/omnibridge's interfaces (declared with the autoloader,
-`autoload.files`) until omnibase 4's final pass. The former Translations asked
-`trans()` alone; the family's asks `exists()` too.
+The former names `Omnibridge\Twig\Contract\Urls` and `Omnibridge\Twig\Contract\Translations`,
+aliases of omniscient/omnibridge's interfaces since its step A2, were removed at omnibase 4's
+final pass: name `Omnibridge\Contract\Urls` and `Omnibridge\Contract\Translations`.
 
 Pilot: lesringostars' article screen (`~/.claude/plans/lesringostars-deux-cadres.md`).

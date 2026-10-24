@@ -20,11 +20,7 @@
     "autoload": {
         "psr-4": {
             "Omnibridge\\Twig\\": "src/"
-        },
-        "files": [
-            "src/Contract/Urls.php",
-            "src/Contract/Translations.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
