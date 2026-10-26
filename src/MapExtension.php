@@ -11,7 +11,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 /**
- * omniscient/omnimap in a page, whichever framework renders it:
+ * omnisense/omnimap in a page, whichever framework renders it:
  *
  *   {{ omnimap(view) }}                                    the picture kept, or the live map (MapPrinter's rule)
  *   {{ omnimap_export(view, {class: 'item', text: '…'}) }}  the button that sends the live map's picture to the cache
@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * Registered by omnibridge/symfony and omnibridge/laravel when omnimap is
  * configured.
  *
- * @suggested omniscient/omnimap
+ * @suggested omnisense/omnimap
  */
 final class MapExtension extends AbstractExtension
 {

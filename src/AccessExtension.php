@@ -9,7 +9,7 @@ use Twig\TwigFunction;
 
 /**
  * What a page asks of the visitor's host: whether the visitor may do
- * something, `is_granted(attribute, subject)` (omniscient/omnibridge's
+ * something, `is_granted(attribute, subject)` (omnisense/omnibridge's
  * Access), and the token a form of theirs carries against cross-site
  * requests, `csrf_token(intent)` (Tokens) - under the names Symfony gives
  * them, answered by the host's adapters.

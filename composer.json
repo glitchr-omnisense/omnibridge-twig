@@ -1,6 +1,6 @@
 {
     "name": "omnibridge/twig",
-    "description": "The Twig side of omnibridge: the contract a page rendered with Twig asks of any framework (path, url, asset, trans - omniscient/omnibridge's Urls and Translations), the Twig extension that provides it where the framework does not, and helpers.",
+    "description": "The Twig side of omnibridge: the contract a page rendered with Twig asks of any framework (path, url, asset, trans - omnisense/omnibridge's Urls and Translations), the Twig extension that provides it where the framework does not, and helpers.",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -10,11 +10,11 @@
     ],
     "require": {
         "php": ">=8.2",
-        "omniscient/omnibridge": "^1.0",
+        "omnisense/omnibridge": "^1.0",
         "twig/twig": "^3.10"
     },
     "require-dev": {
-        "omniscient/omnimap": "^1.0@dev",
+        "omnisense/omnimap": "^1.0@dev",
         "phpunit/phpunit": "^11.5"
     },
     "autoload": {
@@ -30,6 +30,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "suggest": {
-        "omniscient/omnimap": "Omnibridge\\Twig\\MapExtension: omnimap(view), omnimap_export(), omnimap_suppress() - a map's picture kept in the cache or the live map, and the buttons that change it"
+        "omnisense/omnimap": "Omnibridge\\Twig\\MapExtension: omnimap(view), omnimap_export(), omnimap_suppress() - a map's picture kept in the cache or the live map, and the buttons that change it"
     }
 }
