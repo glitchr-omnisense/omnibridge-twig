@@ -47,7 +47,7 @@ Pilot: lesringostars' article screen, rendered by Symfony and by Laravel from on
 
 PHP 8.2 or later, `omnisense/omnibridge` 1.x, `twig/twig` 3.10 or later; `omnisense/omnimap` for
 `MapExtension` (suggested). `HelperExtension`'s `lang_name` and `datetime` use PHP's intl
-(`\Locale`, `\IntlDateFormatter`), its text filters mbstring - neither declared by composer.json
+(`\Locale`, `\IntlDateFormatter`), its text filters mbstring - both required by composer.json
 ([Helpers](helpers.md)).
 
 ## How this manual is organised

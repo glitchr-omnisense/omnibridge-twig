@@ -23,5 +23,5 @@ PHP page ([Installation](installation.md)) and the helpers ([Helpers](helpers.md
 ## What is not verified
 
 - Twig versions other than the one the checkout installs (composer.json admits 3.10 and later).
-- A PHP without intl or mbstring ([Helpers](helpers.md)).
+- A PHP without intl or mbstring: composer refuses to install the package (it requires both; [Helpers](helpers.md)).
 - `|less_than` and `|datetime` around a change of time zone offset: not covered by the tests.

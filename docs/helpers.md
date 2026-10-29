@@ -82,7 +82,3 @@ y (none) emoji
 > the cut starts past its end: 41 `é` shortened to 10 at the front gives `[..]` alone (the last run
 > above), where `[..] éééééééééé` is expected. omnibase's `str_shorten()` is written the same way.
 
-> [!WARNING]
-> Known defect: composer.json does not require `ext-intl` (`\Locale`, `\IntlDateFormatter` in
-> `|lang_name` and `|datetime`) nor `ext-mbstring` (the text filters), where the package's
-> requirements should be declared; a PHP without them fails at the first call.

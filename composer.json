@@ -10,6 +10,8 @@
     ],
     "require": {
         "php": ">=8.2",
+        "ext-mbstring": "*",
+        "ext-intl": "*",
         "omnisense/omnibridge": "^1.0",
         "twig/twig": "^3.10"
     },
