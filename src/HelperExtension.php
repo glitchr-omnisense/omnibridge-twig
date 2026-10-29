@@ -66,8 +66,9 @@ final class HelperExtension extends AbstractExtension
         if ('' === $haystack || 0 === $length) {
             return '' === $haystack ? $haystack : '';
         }
-        $count = \strlen($haystack);
-        if ($count <= $length + \strlen($separator)) {
+        // Characters, not bytes: mb_substr() cuts in characters.
+        $count = mb_strlen($haystack);
+        if ($count <= $length + mb_strlen($separator)) {
             return $haystack;
         }
 

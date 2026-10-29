@@ -31,6 +31,16 @@ final class HelperExtensionTest extends TestCase
         self::assertSame("L'été", $this->render('{{ "L&#039;&eacute;t&eacute;"|html_decode|raw }}'));
     }
 
+    /** Measured and cut in characters: a text of multibyte characters is cut where a text of ASCII is. */
+    public function testAMultibyteTextIsShortenedByItsCharacters(): void
+    {
+        $e = str_repeat('é', 41);
+        self::assertSame('[..] '.str_repeat('é', 10), HelperExtension::shorten($e, 10, HelperExtension::SHORTEN_FRONT));
+        self::assertSame(str_repeat('é', 10).' [..]', HelperExtension::shorten($e, 10, HelperExtension::SHORTEN_BACK));
+        self::assertSame(str_repeat('é', 5).' [..] '.str_repeat('é', 5), HelperExtension::shorten($e, 10, HelperExtension::SHORTEN_MIDDLE));
+        self::assertSame('Été à Kyōto', HelperExtension::shorten('Été à Kyōto', 10), 'eleven characters, within 10 and the separator: as it is');
+    }
+
     public function testAnEntryAndEmojiAlone(): void
     {
         self::assertSame('b|', $this->render('{{ ["a", "b"]|at(1) }}|{{ ["a", "b"]|at(5) }}'), 'none at an index it has not');

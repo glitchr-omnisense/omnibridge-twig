@@ -69,16 +69,12 @@ fr GB FR japonais
 11 avril 2026 03:05 présent
 y (none) emoji
 <div class="card big" data-id="12"></div>
-[..]
+[..] éééééééééé
 ```
 
+- `|str_shorten` measures and cuts in characters (`mb_strlen`, `mb_substr`): 41 `é` shortened to 10
+  at the front keep their last ten.
 - The moment `18:05 UTC` is printed in Tokyo's time (`03:05` the next day).
 - `|highlight` is not marked safe: under autoescaping its marks are escaped, as the run shows. Write
   `|highlight(...)|raw` on a text that is already safe - the filter does not escape the text itself.
-
-> [!WARNING]
-> Known defect: `|str_shorten` measures the text in bytes (`strlen`) and cuts it in characters
-> (`mb_substr`). A text with multibyte characters is cut short, and at the front or in the middle
-> the cut starts past its end: 41 `é` shortened to 10 at the front gives `[..]` alone (the last run
-> above), where `[..] éééééééééé` is expected. omnibase's `str_shorten()` is written the same way.
 
