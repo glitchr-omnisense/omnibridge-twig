@@ -18,9 +18,10 @@ use Twig\TwigFunction;
  *   {{ omnimap_suppress(view, {text: '…'}) }}               the button that deletes it
  *
  * Who may change the map is the host's Access ($control, ROLE_ADMIN by
- * default); the buttons post to the routes named $routes (the host's map
- * cache routes: omnibridge/symfony's, omnibridge/laravel's) with a token of
- * the host's Tokens (intents "omnimap-export", "omnimap-suppress").
+ * default); the buttons post to the routes named $routes with a token of
+ * the host's Tokens (intents "omnimap-export", "omnimap-suppress"): under
+ * Symfony omnibridge/symfony's map cache routes; under Laravel routes the
+ * application declares itself (omnibridge/laravel routes the tile only).
  * Registered by omnibridge/symfony and omnibridge/laravel when omnimap is
  * configured.
  *

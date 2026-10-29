@@ -60,7 +60,9 @@ new MapExtension(
 
 "May change the map" is `Access::isGranted($control)`; false without an `Access`. Without `Tokens`
 the buttons carry an empty token. The constants `MapExtension::EXPORT` and `MapExtension::SUPPRESS`
-are the two intents, which the hosts' controllers check.
+are the two intents, which the hosts' controllers check. The buttons post to the routes named by
+the host: under Symfony omnibridge/symfony's map cache routes; under Laravel routes the application
+declares itself (omnibridge/laravel routes the tile only, and names the others for the buttons).
 
 ```twig
 {{ omnimap(view) }}
@@ -68,7 +70,3 @@ are the two intents, which the hosts' controllers check.
 {{ omnimap_suppress(view, {text: 'Delete'}) }}
 ```
 
-> [!WARNING]
-> Known defect: the class's docblock says the buttons post to "the host's map cache routes:
-> omnibridge/symfony's, omnibridge/laravel's", where omnibridge/laravel routes the tile only: under
-> Laravel the metadata, export and suppress routes are the application's to declare.
