@@ -26,6 +26,7 @@ docker run --rm --network none -v "$PWD":/package:ro omnibridge-symfony:php8.4 v
 | `ContractExtensionTest` | a page uses the contract under Symfony's names (`path`, `url`, `asset`, `\|trans`) |
 | `AccessExtensionTest` | a page asks the host's contracts; it answers in place of the framework's own functions; a contract the host lacks leaves its function out |
 | `MapExtensionTest` | a visitor (the frame, no button), an administrator before a picture (the live map, the export button, no suppress) and after (the picture, both buttons); skipped without GD |
+| `TwigViewsTest` | a view is a template by its name, globals included, a missing one is Twig's LoaderError; the environment asked once, when first needed; a file's path and contents, null path for a template held in memory |
 | `HelperExtensionTest` | the sites' helpers; an entry and emoji alone; dates in the page's language and words as they are; recent and highlighted; an ISO 8601 moment is that moment |
 
 The CI (GitHub Actions, glitchr-studio/ci's package workflow) runs PHPUnit and PHPStan at the highest

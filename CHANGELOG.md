@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+### Added
+
+- **`TwigViews`**: omnisense/omnibridge's `Views` and `ViewSources` answered by Twig's `Environment`
+  (given, or a closure asked when first needed) - render a template by its name, whether it exists, a
+  file's path and contents (plan "omnibase agnostic", step F5a: omnibase's services render through
+  `Views`, not Twig's environment). Needs omnisense/omnibridge 648a843 or later (`ViewSources`).
+
 ### Fixed
 
 - `|str_shorten` (`HelperExtension::shorten()`) measures the text in characters (`mb_strlen`), as it

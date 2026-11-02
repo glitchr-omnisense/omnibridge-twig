@@ -34,6 +34,20 @@ pass (commit 976de23): name `Omnibridge\Contract\Urls` and `Omnibridge\Contract\
 
 Pilot: lesringostars' article screen, rendered by Symfony and by Laravel from one template.
 
+## Views: Twig behind omnibridge's contract
+
+`Omnibridge\Twig\TwigViews` answers omnisense/omnibridge's `Views` and `ViewSources` with a Twig
+`Environment` (or a closure that gives it, when first asked): a view is a template by its name,
+`exists()` asks the loader, `sourcePath()` and `sourceCode()` read a file of the templates' paths (an
+e-mail's inline picture). omnisense/omnibase's notifier, mails, sitemap, QR sheet, sharing buttons and
+media tags render through it (its step F5a); its Symfony configuration and omnibridge/laravel bind
+`Views` to it. Twig's own exceptions pass through (a missing template is a `LoaderError`).
+
+```php
+$views = new Omnibridge\Twig\TwigViews($twig);
+$views->render('@Base/notifier/email.html.twig', ['title' => 'Hello']);
+```
+
 ## Who registers what
 
 | Extension | Under Symfony (omnibridge/symfony) | Under Laravel (omnibridge/laravel's `View\Twig`) | Plain PHP |
