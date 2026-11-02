@@ -38,6 +38,20 @@ names answer through the contracts (and the same Symfony services). A contract n
 function out: a template that calls it fails to compile ("Unknown function"), as it would under
 Symfony without SecurityBundle.
 
+## FormThemeExtension
+
+The generic form theme, for a host without Symfony Form (a Symfony site keeps Symfony's functions, which have
+these names, and its own theme). `form()`, `form_start()`, `form_widget()`, `form_row()`, `form_label()`,
+`form_help()`, `form_errors()`, `form_rest()` and `form_end()` print a neutral form view - omnibase's
+`Base\Form\Definition\FormView`, or any object with public `$vars`, `$children` and `$rendered` - from the blocks of
+`templates/form/theme.html.twig` (namespace `@OmnibridgeForm`), in omnibase's markup: inputs, textarea, select or
+expanded choices, switches, buttons, errors, help. Texts go through `Translations` when one is given.
+
+```php
+FormThemeExtension::register($twig, $translations); // a FilesystemLoader; otherwise add FormThemeExtension::path() yourself
+echo $twig->render('page.twig', ['form' => $submission->createView()]);
+```
+
 ## MapExtension
 
 ```php

@@ -1,0 +1,139 @@
+{# The generic form theme: a neutral form view (omnisense/omnibase's Base\Form\Definition\FormView, its vars named as Symfony's)
+   printed with the markup of omnibase's Symfony theme, for a host without Symfony Form. FormThemeExtension renders these blocks. #}
+
+{%- block attributes -%}
+    {%- for name, value in attr -%}
+        {%- if value is same as(true) %} {{ name }}="{{ name }}"
+        {%- elseif value is not same as(false) and value is not null %} {{ name }}="{{ value }}"
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock -%}
+
+{%- block form -%}
+    {{- form_start(form) -}}
+    {{- form_widget(form) -}}
+    {{- form_end(form) -}}
+{%- endblock -%}
+
+{%- block form_start -%}
+    {%- set method = vars.method|default('POST')|lower -%}
+    {%- set start = {name: vars.name, method: 'get' == method ? 'get' : 'post'} -%}
+    {%- if vars.action|default('') is not empty %}{% set start = start|merge({action: vars.action}) %}{% endif -%}
+    {%- if vars.multipart|default(false) %}{% set start = start|merge({enctype: 'multipart/form-data'}) %}{% endif -%}
+    {%- set start = start|merge(attr|merge({class: ('needs-validation ' ~ (attr.class|default('')))|trim, novalidate: 'novalidate'})) -%}
+    <form{% with {attr: start} %}{{ block('attributes') }}{% endwith %}>
+    {%- if vars.errors is not empty -%}{{- form_errors(form) -}}{%- endif -%}
+{%- endblock -%}
+
+{%- block form_rest -%}
+    {%- for child in form.children -%}
+        {%- if not child.rendered -%}
+            {{- 'hidden' == child.vars.type ? form_widget(child) : form_row(child) -}}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock -%}
+
+{%- block form_end -%}
+    {{- form_rest(form) -}}
+    </form>
+{%- endblock -%}
+
+{%- block form_row -%}
+    {%- if vars.type in ['hidden', 'submit', 'button', 'html'] -%}
+        {{- form_widget(form) -}}
+    {%- elseif 'checkbox' == vars.type -%}
+        <div class="form-switch form-switch-lg form-group form-check">
+            <span>{{- form_label(form) -}}</span>
+            {{- form_widget(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    {%- else -%}
+        <div{% with {attr: vars.row_attr|default({})|merge({class: ('form-group ' ~ (vars.row_attr.class|default('')))|trim})} %}{{ block('attributes') }}{% endwith %}>
+            <span>{{- form_label(form) -}}{{- form_help(form) -}}</span>
+            {{- form_widget(form, vars.errors is not empty ? {attr: {class: ('is-invalid ' ~ (attr.class|default('')))|trim}} : {}) -}}
+            {{- form_errors(form) -}}
+        </div>
+    {%- endif -%}
+{%- endblock -%}
+
+{%- block form_label -%}
+    {%- if vars.label is not same as(false) -%}
+        <div class="label-wrapper">
+            <label for="{{ vars.id }}"{% if vars.required %} class="required"{% endif %}>{{ (vars.label ?? vars.name)|form_trans(vars.translation_domain ?? null) }}</label>
+            <span class="badge badge-secondary label"></span>
+        </div>
+    {%- endif -%}
+{%- endblock -%}
+
+{%- block form_help -%}
+    {%- if vars.help is not empty -%}
+        <span class="data-help"><i class="fa-regular fa-question-circle" data-toggle="tooltip" data-bs-placement="right" title="{{ vars.help|form_trans(vars.translation_domain ?? null) }}"></i></span>
+    {%- endif -%}
+{%- endblock -%}
+
+{%- block form_errors -%}
+    {%- if vars.errors is not empty -%}
+        <div class="form-errors"><ul>
+            {%- for error in vars.errors -%}
+                <li><span>{{ error }}</span></li>
+            {%- endfor -%}
+        </ul></div>
+    {%- endif -%}
+{%- endblock -%}
+
+{%- block form_widget -%}
+    {%- if vars.type == 'form' -%}
+        <div id="{{ vars.id }}">
+            {%- for child in form.children -%}
+                {%- if not child.rendered and child.vars.type != 'hidden' -%}{{- form_row(child) -}}{%- endif -%}
+            {%- endfor -%}
+        </div>
+    {%- elseif vars.type == 'textarea' -%}
+        <textarea{% with {attr: {id: vars.id, name: vars.full_name, required: vars.required, disabled: vars.disabled}|merge(attr)|merge({class: ('form-control ' ~ (attr.class|default('')))|trim})} %}{{ block('attributes') }}{% endwith %}>{{ vars.value }}</textarea>
+    {%- elseif vars.type == 'checkbox' -%}
+        <input{% with {attr: {type: 'checkbox', id: vars.id, name: vars.full_name, class: 'form-switch form-switch-lg form-check-input', value: vars.value, checked: vars.checked|default(false), disabled: vars.disabled}} %}{{ block('attributes') }}{% endwith %} />
+    {%- elseif vars.type == 'choice' -%}
+        {{- block(vars.expanded ? 'choice_expanded' : 'choice_select') -}}
+    {%- elseif vars.type in ['submit', 'button'] -%}
+        <button{% with {attr: {type: vars.type, id: vars.id, name: vars.full_name}|merge(attr)} %}{{ block('attributes') }}{% endwith %}>{{ (vars.label ?? vars.name)|form_trans(vars.translation_domain ?? null) }}</button>
+    {%- elseif vars.type == 'html' -%}
+        {{- vars.html|default('')|raw -}}
+    {%- else -%}
+        {%- set base = {type: vars.type, id: vars.id, name: vars.full_name, required: vars.required, disabled: vars.disabled} -%}
+        {%- if vars.type != 'hidden' -%}
+            {%- set attr = attr|merge({class: ('form-control ' ~ (attr.class|default('')))|trim}) -%}
+            {%- if attr.placeholder is defined %}{% set attr = attr|merge({placeholder: attr.placeholder|form_trans(vars.translation_domain ?? null)}) %}{% endif -%}
+        {%- endif -%}
+        {%- if vars.value is not empty and vars.value is not iterable and vars.type != 'password' %}{% set base = base|merge({value: vars.value}) %}{% endif -%}
+        <input{% with {attr: base|merge(attr)} %}{{ block('attributes') }}{% endwith %} />
+    {%- endif -%}
+{%- endblock -%}
+
+{%- block choice_select -%}
+    <select{% with {attr: {id: vars.id, name: vars.full_name ~ (vars.multiple ? '[]' : ''), required: vars.required, disabled: vars.disabled, multiple: vars.multiple}|merge(attr)|merge({class: ('form-control ' ~ (attr.class|default('')))|trim})} %}{{ block('attributes') }}{% endwith %}>
+        {%- if not vars.multiple and (vars.placeholder ?? null) is not null -%}
+            <option value="">{{ vars.placeholder|form_trans(vars.translation_domain ?? null) }}</option>
+        {%- endif -%}
+        {%- for choice in vars.choices|default([]) -%}
+            {%- if choice.choices is defined -%}
+                <optgroup label="{{ choice.label|form_trans(vars.translation_domain ?? null) }}">
+                    {%- for option in choice.choices -%}
+                        <option value="{{ option.value }}"{% if form.isSelected(option.value) %} selected="selected"{% endif %}>{{ option.label|form_trans(vars.translation_domain ?? null) }}</option>
+                    {%- endfor -%}
+                </optgroup>
+            {%- else -%}
+                <option value="{{ choice.value }}"{% if form.isSelected(choice.value) %} selected="selected"{% endif %}>{{ choice.label|form_trans(vars.translation_domain ?? null) }}</option>
+            {%- endif -%}
+        {%- endfor -%}
+    </select>
+{%- endblock -%}
+
+{%- block choice_expanded -%}
+    <div id="{{ vars.id }}" class="form-control">
+        {%- for choice in vars.choices|default([]) -%}
+            {%- set id = vars.id ~ '_' ~ loop.index0 -%}
+            <input{% with {attr: {type: vars.multiple ? 'checkbox' : 'radio', id: id, name: vars.full_name ~ (vars.multiple ? '[]' : ''), class: 'form-switch form-switch-lg form-check-input', value: choice.value, checked: form.isSelected(choice.value)}} %}{{ block('attributes') }}{% endwith %} />
+            <div class="label-wrapper"><label class="form-check-label" for="{{ id }}">{{ choice.label|form_trans(vars.translation_domain ?? null) }}</label><span class="badge badge-secondary label"></span></div>
+        {%- endfor -%}
+    </div>
+{%- endblock -%}
