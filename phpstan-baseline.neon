@@ -1,6 +1,48 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Access to an undefined property object\:\:\$rendered\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/FormThemeExtension.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$vars\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/FormThemeExtension.php
+
+		-
+			message: '#^Cannot access offset ''attr'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/FormThemeExtension.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: src/FormThemeExtension.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_replace expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/FormThemeExtension.php
+
+		-
+			message: '#^Parameter \#2 \.\.\.\$replacements of function array_replace expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/FormThemeExtension.php
+
+		-
+			message: '#^Parameter \#4 \$options of method Omnibridge\\Twig\\FormThemeExtension\:\:block\(\) expects array\<string, mixed\>, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/FormThemeExtension.php
+
+		-
 			message: '#^Cannot access offset 0 on list\<string\>\|false\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
@@ -73,6 +115,12 @@ parameters:
 			path: src/HelperExtension.php
 
 		-
+			message: '#^Instanceof between Twig\\Environment and Twig\\Environment will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: src/TwigViews.php
+
+		-
 			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, array\<int\|string, mixed\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -85,7 +133,31 @@ parameters:
 			path: tests/ContractExtensionTest.php
 
 		-
+			message: '#^Binary operation "\." between mixed and ''\['' results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: tests/FormThemeExtensionTest.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''_'' results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: tests/FormThemeExtensionTest.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: tests/FormThemeExtensionTest.php
+
+		-
 			message: '#^Method Omnibridge\\Twig\\Tests\\HelperExtensionTest\:\:render\(\) has parameter \$context with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: tests/HelperExtensionTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with ''A'' and ''A'' will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/TwigViewsTest.php
