@@ -33,5 +33,10 @@
     "prefer-stable": true,
     "suggest": {
         "omnisense/omnimap": "Omnibridge\\Twig\\MapExtension: omnimap(view), omnimap_export(), omnimap_suppress() - a map's picture kept in the cache or the live map, and the buttons that change it"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-1.x": "1.x-dev"
+        }
     }
 }
