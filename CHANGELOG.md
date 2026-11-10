@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-10
+
 ### Added
 
 - **`FormThemeExtension`** and `templates/form/theme.html.twig` (plan "omnibase agnostic", step F5b): the generic form theme, `form()`,
