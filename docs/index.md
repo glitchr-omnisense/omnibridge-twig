@@ -59,7 +59,7 @@ $views->render('@Base/notifier/email.html.twig', ['title' => 'Hello']);
 
 ## Requirements
 
-PHP 8.2 or later, `omnisense/omnibridge` 1.x, `twig/twig` 3.10 or later; `omnisense/omnimap` for
+PHP 8.2 or later, `omnisense/omnibridge` 2.x, `twig/twig` 3.10 or later; `omnisense/omnimap` for
 `MapExtension` (suggested). `HelperExtension`'s `lang_name` and `datetime` use PHP's intl
 (`\Locale`, `\IntlDateFormatter`), its text filters mbstring - both required by composer.json
 ([Helpers](helpers.md)).

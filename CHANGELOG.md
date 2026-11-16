@@ -1,11 +1,12 @@
 # Changelog
 
-## [1.0.0] - Unreleased (the "base-agnostic" ensemble)
+## [2.0.0]
 
-Every omni* package restarts at 1.0.0. What this package is: the Twig side of omnibridge - `TwigViews`, the
+Every package of the ensemble takes its next major version. What this package is: the Twig side of omnibridge - `TwigViews`, the
 contract `Views`/`ViewSources` (the host binds it under `Base\Contract\Views`; nothing names `TwigViews`) and
 the extensions a host registers (`ContractExtension`, `AccessExtension`, `HelperExtension`, `FormThemeExtension`,
-`MapExtension`). No site or bundle names `Omnibridge\Twig\`.
+`MapExtension`). No site or bundle names `Omnibridge\Twig\`. Its code is 1.0.0's: the new major is
+its requirement, omnisense/omnibridge `^2.0`.
 
 ## [1.0.0] - 2026-11-10
 
