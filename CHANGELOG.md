@@ -1,6 +1,11 @@
 # Changelog
 
-## [Unreleased]
+## [1.0.0] - Unreleased (the "base-agnostic" ensemble)
+
+Every omni* package restarts at 1.0.0. What this package is: the Twig side of omnibridge - `TwigViews`, the
+contract `Views`/`ViewSources` (the host binds it under `Base\Contract\Views`; nothing names `TwigViews`) and
+the extensions a host registers (`ContractExtension`, `AccessExtension`, `HelperExtension`, `FormThemeExtension`,
+`MapExtension`). No site or bundle names `Omnibridge\Twig\`.
 
 ## [1.0.0] - 2026-11-10
 
